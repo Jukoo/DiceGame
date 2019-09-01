@@ -1,0 +1,2 @@
+N="dice"
+BOARD="arduino:avr:uno"
