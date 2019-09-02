@@ -1,8 +1,8 @@
 #ifndef __DICE__
-#define __DICE__
+#define __DICE__ 
 
 #include <stdint.h> 
-//! configuration 
+
 #define RND_RATE 0X006   
 #define DICE_SIZE (RND_RATE - 0X001)             
 
@@ -12,25 +12,30 @@
 #define PIN_4    0X04                           //! PIN 4 
 #define PIN_5    0X05                           //! PIN 5 
 #define PIN_6    0x06                           //! PIN 6 
-
-#define I_BTN    0X0A                           //! PIN 10 Button INPUT_PULLUP  
+//! BTN PUSH 
+#define I_BTN    0X0A                           //! PIN 10 Button INPUT_PULLUP 
+// RANDOM 
 #define RAND_INIT()   randomSeed(analogRead(0)) //! INITIALISE THE RANDOM SEQUENCE   
 #define RAND(arg_num)  random(arg_num)          //! GENERATE RANDOM NUMBER  [not used]
-#define MAX_T_SLP  0xc8                //! MAX TIME DELAY OR SLEEP  3000 millisecs 
-#define ANIM_SPEED 0x32 //0x64                         //! ANIMATION  SPEED 100 millisecs 
+//! TIMER  
+#define MAX_T_SLP  0xc8                         //! MAX TIME DELAY OR SLEEP  
+#define ANIM_SPEED 0x32 //0x64                  //! ANIMATION  SPEED
+
+//! REDIFINE  DELAY METHOD
 #define DTimer(timeDelay) delay(timeDelay)      //! TIME DELAY OR SLEEP 
 
-//!----redifine Serial  
+//! REDIFINE SERIAL METHOD 
 #define LOG(arg) Serial.println(arg)
 #define LOG_(arg)Serial.print(arg) 
 
-//! --- dice Patern 
+//! DICE PATERN   
 uint8_t one {PIN_3}; 
 uint8_t two[2]   = {PIN_4,PIN_5} ; 
 uint8_t three[3] = {PIN_3 ,PIN_4,PIN_5} ; 
 uint8_t four[4]  = {PIN_2,PIN_4,PIN_5,PIN_6} ;
-//!  the five is  equale to DICE_SIZE
+//!  the five is  equale to DICE_SIZE !\\
 
+//! CORE 
 void dice_init(uint8_t [] ) ; 
 
 void dice_blink(uint8_t []) ; 
@@ -63,4 +68,5 @@ void showResult(uint8_t &) ;
 
 void animation_patern_v2(uint8_t [] ,  uint8_t ) ; 
 
+//static uint8_t no_rand_repeat (uint8_t&) ; 
 #endif 

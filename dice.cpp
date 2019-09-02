@@ -91,7 +91,7 @@ void dice_throw ( uint8_t& rand_num  , uint8_t dicep []) {
         case DICE_SIZE: 
             DP::five(dicep) ;
             break ; 
-        default :  DP::zero(dicep) ;      
+        default : DP::zero(dicep) ;      
     } 
 } 
 
@@ -153,8 +153,7 @@ void showResult (uint8_t& rand_num) {
         sprintf(buffer , "the result is :  %d" ,rand_num) ; 
         LOG(buffer) ; 
 } 
-
-
+ 
 void animation_patern_v2(uint8_t io_pins []  , uint8_t size )  { 
         uint8_t get_previews_rnd  {0};  
         for ( int  i  = 0 ; i < 3000 ; i+=200 ) {
