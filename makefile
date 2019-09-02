@@ -5,6 +5,7 @@ uc_serial_port = /dev/ttyUSB0
 
 
 
+
 avr_check : 
 	$(AVRC) -v 
 
