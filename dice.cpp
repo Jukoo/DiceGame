@@ -169,4 +169,6 @@ void animation_patern_v2(uint8_t io_pins []  , uint8_t size )  {
                 //! avoiding no repeate the same number 
                 get_previews_rnd = rand_num ;  
         }
-}
+} 
+
+

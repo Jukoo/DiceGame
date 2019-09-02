@@ -1,0 +1,7 @@
+{
+    "serial_port":9600,
+    "os": {
+        "linux" :"/dev/ttyUSB0", 
+        "unknown":"COM"
+    }   
+}
