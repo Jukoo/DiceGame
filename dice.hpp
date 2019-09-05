@@ -16,13 +16,20 @@
 #define I_BTN    0X0A                           //! PIN 10 Button INPUT_PULLUP 
 // RANDOM 
 #define RAND_INIT()   randomSeed(analogRead(0)) //! INITIALISE THE RANDOM SEQUENCE   
-#define RAND(arg_num)  random(arg_num)          //! GENERATE RANDOM NUMBER  [not used]
+#define RAND(arg_num)  random(arg_num)          //! GENERATE RANDOM NUMBER  [not used] 
+#define NO_RAND_REPEAT true                     //! AVOID TO REPEATE  THE SAME NUMBER
+                                                //! SUCCESSIVELY... 
 //! TIMER  
 #define MAX_T_SLP  0xc8                         //! MAX TIME DELAY OR SLEEP  
 #define ANIM_SPEED 0x32 //0x64                  //! ANIMATION  SPEED
 
 //! REDIFINE  DELAY METHOD
-#define DTimer(timeDelay) delay(timeDelay)      //! TIME DELAY OR SLEEP 
+#define DTimer(timeDelay) delay(timeDelay)      //! TIME DELAY OR SLEEP  
+/* 
+#define S_ENABLE Serial.available() 
+#define DR digitalRead(I_BTN) 
+#define RXDR Serial.read() 
+*/
 
 //! REDIFINE SERIAL METHOD 
 #define LOG(arg) Serial.println(arg)
@@ -53,12 +60,9 @@ namespace DP  {
     void zero  (uint8_t []) ;  
 }  
 
-void dice_throw(
-        uint8_t& ,
-        uint8_t []  //! only zero partern use it 
-        ) ; 
+void dice_throw( uint8_t& ,uint8_t []) ; 
 
-void leds_init(uint8_t []);  
+void leds_init(uint8_t [], bool =false);  
 
 static void amination_patern(uint8_t&  , uint8_t[] ) ; 
 
@@ -66,7 +70,7 @@ void loader() ;
 
 void showResult(uint8_t &) ;  
 
-void animation_patern_v2(uint8_t [] ,  uint8_t ) ; 
+void animation_patern_v2(uint8_t [] ,uint8_t& , uint16_t) ; 
 
 //static uint8_t no_rand_repeat (uint8_t&) ; 
 #endif 

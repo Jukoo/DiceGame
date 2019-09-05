@@ -2,7 +2,7 @@
 #include "dice.hpp" 
 #include <stdint.h> 
 
-
+//! initialize the output pins 
 void dice_init(uint8_t dpins [])  {
     for(uint8_t i{0} ; i < DICE_SIZE;  i++) {
         pinMode(dpins[i] , OUTPUT);     
@@ -21,7 +21,6 @@ void dice_blink (uint8_t dpins []) {
         digitalWrite(dpins[i] , 0x01); 
     }
 }
-
 
 //! turn off the leds 
 static void turn_off_between() {    
@@ -95,18 +94,29 @@ void dice_throw ( uint8_t& rand_num  , uint8_t dicep []) {
     } 
 } 
 
-
-void leds_init ( uint8_t dpins [] ) {  
-    for(uint32_t i{0} ; i < 2000 ; i+=200) {
-        uint8_t rnd_patern  = random(6) ; 
-        //LOG(rnd_patern);
+//! used for animation  
+void leds_init ( uint8_t dpins [] , bool use_random_animation) {  
+    uint16_t constexpr MAX_DURATION {2000} ; 
+    uint8_t watch_rnd {0}  ; 
+    for(uint32_t i{0} ; i <MAX_DURATION ; i+=200) {
+        uint8_t rnd_patern  = random(RND_RATE) ; 
+        //LOG(rnd_patern); 
+        if (use_random_animation) { 
+            while (watch_rnd == rnd_patern) {
+                rnd_patern = random(RND_RATE) ;  
+            } 
+        } 
         for (uint8_t pin {0}  ; pin < DICE_SIZE  ; pin++) {
-          animation_patern(rnd_patern , dpins);  
+            if(!use_random_animation) 
+                animation_patern(rnd_patern , dpins);
+            else 
+                animation_patern_v2(dpins ,rnd_patern ,  MAX_DURATION) ; 
         }
-          DTimer(i) ; 
+          DTimer(i) ;  
+          watch_rnd = rnd_patern ; 
     }
 } 
-//! play the leds  animation 
+//! play the leds  animation #animation version 1  
 static void animation_patern(uint8_t& rnd_num , uint8_t dpins []) {
         switch (rnd_num) {
         case 0x001 : 
@@ -153,21 +163,21 @@ void showResult (uint8_t& rand_num) {
         sprintf(buffer , "the result is :  %d" ,rand_num) ; 
         LOG(buffer) ; 
 } 
- 
-void animation_patern_v2(uint8_t io_pins []  , uint8_t size )  { 
-        uint8_t get_previews_rnd  {0};  
-        for ( int  i  = 0 ; i < 3000 ; i+=200 ) {
-                uint8_t rand_num = random(DICE_SIZE) ; 
+//! animation version 2  [much more cool]
+void animation_patern_v2(uint8_t io_pins [] , uint8_t& rand_num ,  uint16_t duration)  { 
+       // uint8_t get_previews_rnd  {0};  
+        for ( int  i  = 0 ; i < duration ; i+=200 ) {
+               // uint8_t rand_num = random(DICE_SIZE) ; 
 
-                while (rand_num == get_previews_rnd) 
-                    rand_num = random(DICE_SIZE) ; 
+               // while (rand_num == get_previews_rnd) 
+                 //   rand_num = random(DICE_SIZE) ; 
                                    
                 digitalWrite(io_pins[rand_num] , 0x000) ; 
                 DTimer(100) ; 
                 digitalWrite(io_pins[rand_num]  , 0x001) ; 
                 DTimer(100) ; 
                 //! avoiding no repeate the same number 
-                get_previews_rnd = rand_num ;  
+               // get_previews_rnd = rand_num ;  
         }
 } 
 

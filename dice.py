@@ -58,8 +58,8 @@ print("reading from  avr device ")
 
 while I_loop  : 
     print(a_avrC.readline()) 
-    time.slee(2)  
-    uplay  = input("[Tx -> send data]") 
+    time.sleep(2)  
+    uplay  = input("[Tx -> send data] .> ") 
     a_avrC.write(uplay.encode())
     
 

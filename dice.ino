@@ -15,7 +15,7 @@
 #include "dice.hpp" 
 
 
-// leds collection 
+// leds collections 
 uint8_t dicep[DICE_SIZE] = { 
     PIN_2,
     PIN_3,
@@ -29,7 +29,7 @@ void setup () {
     Serial.begin(9600) ; 
     dice_init(dicep) ; 
     pinMode(I_BTN, INPUT_PULLUP);  
-    RAND_INIT() ;  //randomSeed(analogRead(0))  ;  // initialize random sequence  
+    randomSeed(analogRead(0))  ;  // initialize random sequence  
     rnd_num = 0x000 ;  
     LOG("AVR device ready ! <push the button to start ... >") ; 
 }   
@@ -38,7 +38,7 @@ void loop () {
     bool ipb_stat = digitalRead(I_BTN) ; 
     if(!ipb_stat) {
         loader() ; 
-        leds_init(dicep) ;
+        leds_init(dicep , false ) ;
         //animation_patern_v2(dicep , DICE_SIZE) ; 
         rnd_num =random(RND_RATE) ;  
         dice_throw(rnd_num , dicep) ;
