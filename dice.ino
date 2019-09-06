@@ -38,7 +38,7 @@ void loop () {
     bool ipb_stat = digitalRead(I_BTN) ; 
     if(!ipb_stat) {
         loader() ; 
-        leds_init(dicep , false ) ;
+        leds_init(dicep) ;
         //animation_patern_v2(dicep , DICE_SIZE) ; 
         rnd_num =random(RND_RATE) ;  
         dice_throw(rnd_num , dicep) ;

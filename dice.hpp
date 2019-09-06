@@ -20,8 +20,8 @@
 #define NO_RAND_REPEAT true                     //! AVOID TO REPEATE  THE SAME NUMBER
                                                 //! SUCCESSIVELY... 
 //! TIMER  
-#define MAX_T_SLP  0xc8                         //! MAX TIME DELAY OR SLEEP  
-#define ANIM_SPEED 0x32 //0x64                  //! ANIMATION  SPEED
+#define MAX_T_SLP  0x64                        //! MAX TIME DELAY OR SLEEP  100 
+#define ANIM_SPEED 0x0a                        //! ANIMATION  SPEED         10
 
 //! REDIFINE  DELAY METHOD
 #define DTimer(timeDelay) delay(timeDelay)      //! TIME DELAY OR SLEEP  
