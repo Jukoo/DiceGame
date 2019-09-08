@@ -95,26 +95,26 @@ void dice_throw ( uint8_t& rand_num  , uint8_t dicep []) {
 } 
 
 //! used for animation  
-void leds_init ( uint8_t dpins [] , bool use_random_animation) {  
+void leds_animation ( uint8_t dpins [] ,ANIMATION_TYPE &a_type ,  bool use_random_animation) {  
     uint16_t constexpr MAX_DURATION {1000} ; 
     uint8_t watch_rnd {0}  ; 
     for(uint32_t i{0} ; i <MAX_DURATION ; i+=75) {
-        uint8_t rnd_patern  = random(RND_RATE) ; 
-        //LOG(rnd_patern); 
+        uint8_t rnd_patern  = random(RND_RATE) ;  
         if (use_random_animation) { 
             while (watch_rnd == rnd_patern || rnd_patern == 0) {
                 rnd_patern = random(RND_RATE) ;  
             } 
         } 
-        
         for (uint8_t pin {0}  ; pin < DICE_SIZE  ; pin++) {
-            if(!use_random_animation) 
+            if(a_type == 0) 
                 animation_patern(rnd_patern , dpins);
             else 
-                animation_patern_v2(dpins ,rnd_patern ,  MAX_DURATION) ; 
+                animation_patern_v2(rnd_patern, dpins) ; 
         }
           DTimer(i) ;  
-          watch_rnd = rnd_patern ; 
+          //! the watch_rnd is active when  the use_random_animation is set to true 
+          //! otherwise  it sets to zero 
+          watch_rnd = use_random_animation ? rnd_patern : 0 ; 
     }
 } 
 //! play the leds  animation #animation version 1  
@@ -165,21 +165,9 @@ void showResult (uint8_t& rand_num) {
         LOG(buffer) ; 
 } 
 //! animation version 2  [much more cool]
-void animation_patern_v2(uint8_t io_pins [] , uint8_t& rand_num ,  uint16_t duration)  { 
-       // uint8_t get_previews_rnd  {0};  
-        for ( int  i  = 0 ; i < duration ; i+=100 ) {
-               // uint8_t rand_num = random(DICE_SIZE) ; 
-
-               // while (rand_num == get_previews_rnd) 
-                 //   rand_num = random(DICE_SIZE) ; 
-                                   
+void animation_patern_v2( uint8_t& rand_num , uint8_t io_pins [])  {      
                 digitalWrite(io_pins[rand_num] , 0x000) ; 
                 DTimer(100) ; 
                 digitalWrite(io_pins[rand_num]  , 0x001) ; 
-                DTimer(100) ; 
-                //! avoiding no repeate the same number 
-               // get_previews_rnd = rand_num ;  
-        }
+                DTimer(100) ;  
 } 
-
-

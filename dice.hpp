@@ -13,10 +13,11 @@
 #define PIN_5    0X05                           //! PIN 5 
 #define PIN_6    0x06                           //! PIN 6 
 //! BTN PUSH 
-#define I_BTN    0X0A                           //! PIN 10 Button INPUT_PULLUP 
+#define PIN_10_BTN    0X0A                      //! PIN 10 Button INPUT_PULLUP 
 // RANDOM 
 #define RAND_INIT()   randomSeed(analogRead(0)) //! INITIALISE THE RANDOM SEQUENCE   
 #define RAND(arg_num)  random(arg_num)          //! GENERATE RANDOM NUMBER  [not used] 
+
 #define NO_RAND_REPEAT true                     //! AVOID TO REPEATE  THE SAME NUMBER
                                                 //! SUCCESSIVELY... 
 //! TIMER  
@@ -50,6 +51,10 @@ void dice_blink(uint8_t []) ;
 static void turn_off_between() ;  
 static void dice_illuminate(uint8_t []  , uint8_t ) ; 
 
+typedef enum {
+    DICE_PATERN_ANIMATION , //0 
+    RANDOM_LED_ANIMATION //1 
+} ANIMATION_TYPE ; 
 
 namespace DP  {
     void one   (uint8_t& , uint32_t  = MAX_T_SLP) ;   
@@ -62,7 +67,7 @@ namespace DP  {
 
 void dice_throw( uint8_t& ,uint8_t []) ; 
 
-void leds_init(uint8_t [], bool =false);  
+void leds_animation(uint8_t [], ANIMATION_TYPE& , bool =NO_RAND_REPEAT);  
 
 static void amination_patern(uint8_t&  , uint8_t[] ) ; 
 
@@ -70,7 +75,6 @@ void loader() ;
 
 void showResult(uint8_t &) ;  
 
-void animation_patern_v2(uint8_t [] ,uint8_t& , uint16_t) ; 
+void animation_patern_v2(uint8_t& ,uint8_t[]) ; 
 
-//static uint8_t no_rand_repeat (uint8_t&) ; 
 #endif 

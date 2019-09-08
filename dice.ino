@@ -1,6 +1,6 @@
 /** 
     author : Jukoo <funscript@outlook.fr> 
-    link   : https://github.com/Jukoo
+    link   : https://github.com/Jukoo/DiceGame
     firmware for dice game v_1.0 
 
      SCHEMAS     
@@ -14,6 +14,9 @@
 #include <stdint.h>
 #include "dice.hpp" 
 
+//! Animation type 
+ANIMATION_TYPE anim_type = DICE_PATERN_ANIMATION ; 
+//ANIMATION_TYPE anim_type = RANDOM_LED_ANIMATION ; 
 
 // leds collections 
 uint8_t dicep[DICE_SIZE] = { 
@@ -28,18 +31,17 @@ uint8_t rnd_num ;
 void setup () { 
     Serial.begin(9600) ; 
     dice_init(dicep) ; 
-    pinMode(I_BTN, INPUT_PULLUP);  
+    pinMode(PIN_10_BTN, INPUT_PULLUP);  
     randomSeed(analogRead(0))  ;  // initialize random sequence  
-    rnd_num = 0x000 ;  
+    rnd_num = 0; 
     LOG("AVR device ready ! <push the button to start ... >") ; 
 }   
 void loop () { 
     
-    bool ipb_stat = digitalRead(I_BTN) ; 
-    if(!ipb_stat) {
-        loader() ; 
-        leds_init(dicep) ;
-        //animation_patern_v2(dicep , DICE_SIZE) ; 
+    bool pull_up_btn = digitalRead(PIN_10_BTN) ; 
+    if(!pull_up_btn) {
+        loader() ;  //  the loader  
+        leds_animation(dicep, anim_type) ;
         rnd_num =random(RND_RATE) ;  
         dice_throw(rnd_num , dicep) ;
         showResult(rnd_num); 
