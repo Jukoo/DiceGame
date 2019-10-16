@@ -3,6 +3,7 @@
 
 #include <stdint.h> 
 
+#define BAUD_CHANNEL   19200
 #define RND_RATE 0X006   
 #define DICE_SIZE (RND_RATE - 0X001)             
 
@@ -11,7 +12,12 @@
 #define PIN_3    0X03                           //! PIN 3 
 #define PIN_4    0X04                           //! PIN 4 
 #define PIN_5    0X05                           //! PIN 5 
-#define PIN_6    0x06                           //! PIN 6 
+#define PIN_6    0x06                           //! PIN 6
+//! io analog  
+#define  ANALOG_POT A2                          
+#define  LOW_POT_RATE 0X00
+#define  HIGH_POT_RATE 0x3FF 
+
 //! BTN PUSH 
 #define PIN_10_BTN    0X0A                      //! PIN 10 Button INPUT_PULLUP 
 // RANDOM 
@@ -67,7 +73,7 @@ namespace DP  {
 
 void dice_throw( uint8_t& ,uint8_t []) ; 
 
-void leds_animation(uint8_t [], ANIMATION_TYPE& , bool =NO_RAND_REPEAT);  
+void leds_animation(uint8_t [], ANIMATION_TYPE& , int& , bool =NO_RAND_REPEAT);  
 
 static void amination_patern(uint8_t&  , uint8_t[] ) ; 
 
@@ -75,6 +81,8 @@ void loader() ;
 
 void showResult(uint8_t &) ;  
 
-void animation_patern_v2(uint8_t& ,uint8_t[]) ; 
+void animation_patern_v2(uint8_t& ,uint8_t[]) ;
 
+int animation_potar_control(int & , int); 
+void potar_variation_view(int&) ;  
 #endif 

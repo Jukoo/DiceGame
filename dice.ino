@@ -38,13 +38,18 @@ void setup () {
 }   
 void loop () { 
     
-    bool pull_up_btn = digitalRead(PIN_10_BTN) ; 
-    if(!pull_up_btn) {
-        loader() ;  //  the loader  
-        leds_animation(dicep, anim_type) ;
+     int anime_variation = analogRead(ANALOG_POT);  
+     int variation  = animation_potar_control(anime_variation ,3000) ; 
+     potar_variation_view(variation) ;  
+     bool pull_up_btn = digitalRead(PIN_10_BTN) ;
+     
+     if(!pull_up_btn) {
+       loader() ;  //  the loader  
+        leds_animation(dicep,anim_type , variation) ;
         rnd_num =random(RND_RATE) ;  
         dice_throw(rnd_num , dicep) ;
         showResult(rnd_num); 
+     
     }
     
 }

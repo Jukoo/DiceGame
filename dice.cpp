@@ -95,8 +95,8 @@ void dice_throw ( uint8_t& rand_num  , uint8_t dicep []) {
 } 
 
 //! used for animation  
-void leds_animation ( uint8_t dpins [] ,ANIMATION_TYPE &a_type ,  bool use_random_animation) {  
-    uint16_t constexpr MAX_DURATION {1000} ; 
+void leds_animation ( uint8_t dpins [] ,ANIMATION_TYPE &a_type , int &v_duration,  bool use_random_animation) {  
+    int MAX_DURATION = v_duration ; 
     uint8_t watch_rnd {0}  ; 
     for(uint32_t i{0} ; i <MAX_DURATION ; i+=75) {
         uint8_t rnd_patern  = random(RND_RATE) ;  
@@ -171,3 +171,25 @@ void animation_patern_v2( uint8_t& rand_num , uint8_t io_pins [])  {
                 digitalWrite(io_pins[rand_num]  , 0x001) ; 
                 DTimer(100) ;  
 } 
+
+
+
+//! show variation on serial Ploter or Serial monitor
+void potar_variation_view(int& value) {
+    char buffer[0x0017] ; //! 20  
+    sprintf (buffer , "readed value -> %d" , value ); 
+    LOG(buffer);  
+    DTimer(0x64); 
+}
+
+
+int animation_potar_control(int&pot_val, int rate_animation ) {
+   return map(
+           pot_val ,  
+           LOW_POT_RATE , 
+           HIGH_POT_RATE , 
+           500,
+           rate_animation 
+           )  ; 
+    
+}
